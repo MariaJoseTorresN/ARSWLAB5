@@ -12,7 +12,7 @@ import edu.eci.arsw.blueprints.model.Point;
 
 
 @Service
-@Qualifier("Redundancia")
+@Qualifier(value="Redundancia")
 public class FiltroRedundancia implements BluePrintsFilter{
 
     @Override

@@ -17,11 +17,13 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 
 
+
 /**
  *
  * @author hcadavid
  */
 @Controller
+@Qualifier(value="Service")
 public class BlueprintsServices {
    
     @Autowired
@@ -32,6 +34,7 @@ public class BlueprintsServices {
     @Qualifier("Redundancia")
     BluePrintsFilter filtro;
     
+
     public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException{
         bpp.saveBlueprint(bp);
     }

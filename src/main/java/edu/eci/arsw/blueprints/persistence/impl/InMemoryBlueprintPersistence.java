@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-@Qualifier("Memory")
+@Qualifier(value="Memory")
 public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
     private final Map<Tuple<String,String>,Blueprint> blueprints=new HashMap<>();

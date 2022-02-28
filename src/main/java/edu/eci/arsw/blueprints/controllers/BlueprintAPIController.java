@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,7 @@ import edu.eci.arsw.blueprints.services.BlueprintsServices;
 public class BlueprintAPIController {
 
     @Autowired
+    @Qualifier("Service")
     private BlueprintsServices bps;
 
     @GetMapping("/blueprints")
