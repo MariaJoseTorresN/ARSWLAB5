@@ -10,10 +10,11 @@ import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -27,7 +28,7 @@ import org.springframework.stereotype.Repository;
 @Qualifier(value="Memory")
 public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
-    private final Map<Tuple<String,String>,Blueprint> blueprints=new HashMap<>();
+    private final ConcurrentHashMap<Tuple<String,String>,Blueprint> blueprints=new ConcurrentHashMap <>();
 
     public InMemoryBlueprintPersistence() {
         //load stub data
@@ -81,6 +82,11 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
             temp.add(set.getValue());
         }
         return temp;
+    }
+
+    @Override
+    public void putBlueprint(String author, String name, List<Point> points) throws BlueprintNotFoundException {
+        blueprints.get(new Tuple<>(author, name)).setPoints(points);
     }
 
     

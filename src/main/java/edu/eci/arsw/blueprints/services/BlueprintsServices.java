@@ -7,14 +7,16 @@ package edu.eci.arsw.blueprints.services;
 
 import edu.eci.arsw.blueprints.model.BluePrintsFilter;
 import edu.eci.arsw.blueprints.model.Blueprint;
+import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 
 
@@ -22,8 +24,8 @@ import org.springframework.stereotype.Controller;
  *
  * @author hcadavid
  */
-@Controller
-@Qualifier(value="Service")
+@Service
+@Qualifier("Service")
 public class BlueprintsServices {
    
     @Autowired
@@ -73,4 +75,7 @@ public class BlueprintsServices {
         return temp;
     }
 
+    public void putBlueprint(String author,String name,  List<Point> points)throws BlueprintNotFoundException{
+        bpp.putBlueprint( author, name, points);
+    }
 }

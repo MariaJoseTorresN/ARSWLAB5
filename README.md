@@ -98,25 +98,34 @@ Del anterior diagrama de componentes (de alto nivel), se desprendió el siguient
 
 	Con lo anterior, registre un nuevo plano (para 'diseñar' un objeto jSON, puede usar [esta herramienta](http://www.jsoneditoronline.org/)):
 	
+	![](img/Imagen1.png)
 
 	Nota: puede basarse en el formato jSON mostrado en el navegador al consultar una orden con el método GET.
 
-
+	
 3. Teniendo en cuenta el autor y numbre del plano registrado, verifique que el mismo se pueda obtener mediante una petición GET al recurso '/blueprints/{author}/{bpname}' correspondiente.
-
+	![](img/Imagen2.png)
 4. Agregue soporte al verbo PUT para los recursos de la forma '/blueprints/{author}/{bpname}', de manera que sea posible actualizar un plano determinado.
 
+![](img/Imagen3.png)
+
+Como se ve con la imagen del punto 3 se modifico el valor de forma exitosa
+![](img/Imagen4.png)
 
 ### Parte III
 
 El componente BlueprintsRESTAPI funcionará en un entorno concurrente. Es decir, atederá múltiples peticiones simultáneamente (con el stack de aplicaciones usado, dichas peticiones se atenderán por defecto a través múltiples de hilos). Dado lo anterior, debe hacer una revisión de su API (una vez funcione), e identificar:
 
 * Qué condiciones de carrera se podrían presentar?
+	Las condiciones de carrera que tenemos son las mismas que se ven en la de transaccioes, si se hace uso de un recurso en simultaneo, se pueden crear 2 instancias del mismo en el momento de acceder, es decir si una persona modifica un blueprint mientras que otra tambien , solo queda el de el ultimo que lo realizo por lo que nunca existiran los cambios del primero, o si alguien consulta en ese momento va  atener una consulta previa a los cambios.
 * Cuales son las respectivas regiones críticas?
+	La region critica es el hashMap ya que este no es bloqueado o sincronizado mientras se interactua con el.
 
 Ajuste el código para suprimir las condiciones de carrera. Tengan en cuenta que simplemente sincronizar el acceso a las operaciones de persistencia/consulta DEGRADARÁ SIGNIFICATIVAMENTE el desempeño de API, por lo cual se deben buscar estrategias alternativas.
 
 Escriba su análisis y la solución aplicada en el archivo ANALISIS_CONCURRENCIA.txt
+
+![](img/Imagen5.png)
 
 #### Criterios de evaluación
 
